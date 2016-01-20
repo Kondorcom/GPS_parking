@@ -21,5 +21,7 @@
     <string name="Zone">Zone</string>
     <string name="Date">Date</string>
     <string name="Time">Time</string>
+    <string name="hint_vehicle">Vehicle name</string>
+    <string name="hint_registration">Registration</string>
 
 </resources>

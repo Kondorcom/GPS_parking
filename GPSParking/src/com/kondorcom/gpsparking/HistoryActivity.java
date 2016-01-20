@@ -28,8 +28,8 @@ public class HistoryActivity extends Activity {
 	ListView listView;
 	
 	Spinner spinner;
-	historyDataSource datasource;
-	userDataSource dataSource2;
+	historyDataSource hist_data_source;
+	userDataSource user_data_source;
 	String registracija;
 	
 	
@@ -65,15 +65,15 @@ public class HistoryActivity extends Activity {
 	private void loadSpinnerData() {
 
 		
-		datasource = new historyDataSource(this);
-		dataSource2 = new userDataSource(this);
+		hist_data_source = new historyDataSource(this);
+		user_data_source = new userDataSource(this);
 		
 		Log.i(LOGTAG, "historry spinner");
 	
-		datasource.open();
-		dataSource2.open();
+		hist_data_source.open();
+		user_data_source.open();
 		
-	List<User> user = dataSource2.findAll2();
+	List<User> user = user_data_source.findAll2();
 		
 		
 		ArrayAdapter<User> adapter2 = new ArrayAdapter<User>(this,
@@ -88,7 +88,7 @@ public class HistoryActivity extends Activity {
 		Log.i(LOGTAG, "spiner_main");
 		povijest.setAdapter(adapter2);
 		
-		/*List<History> hist = datasource.findCars();
+		/*List<History> hist = hist_data_source.findCars();
 		
 		
 		ArrayAdapter<History> adapter2 = new ArrayAdapter<History>(this,
@@ -160,7 +160,7 @@ public class HistoryActivity extends Activity {
 				
 				/*Log.i(LOGTAG, "historry spinner");
 			
-				datasource.open();
+				hist_data_source.open();
 				List<History> hist = datasource.findCars(oznaka1);
 				
 				Log.d("history_payments1111111", hist.toString());
@@ -184,14 +184,15 @@ public class HistoryActivity extends Activity {
 	{
 		Log.i(LOGTAG, "historry spinner");
 		
-		datasource.open();
-		List<History> hist = datasource.findCars(registracija);
+		hist_data_source.open();
+		List<History> hist = hist_data_source.findCars(registracija);
 		
-		 List<HashMap<String, String>> hist2 = datasource.findCars2(registracija);
+		 List<HashMap<String, String>> hist2 = hist_data_source.findCars2(registracija);
 				 
 		Log.d("history_payments1111111", hist.toString());
 		
 		ArrayAdapter<History> adapter = new ArrayAdapter<History>(this,android.R.layout.simple_list_item_1,hist);
+		
 		
 		String[] from = new String[] { "DOP", "TOP","City","Zone"};
         int[] to = new int[] {  R.id.item3, R.id.item4,R.id.item5,R.id.item6 };

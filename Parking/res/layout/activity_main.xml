@@ -1,0 +1,147 @@
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="20dp" 
+    android:background="@drawable/image4"
+    >
+
+  
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingBottom="20dp"
+        >
+        
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vozilo"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/Spinner01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:layout_weight="1" 
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp" >
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/grad"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/Spinner02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zona" 
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:id="@+id/spinner03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" 
+        android:paddingBottom="20dp">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            
+           
+            android:background="@drawable/btn_dodaj"
+            android:gravity="center_vertical|center_horizontal|top"
+            android:shadowColor="#A5A8A8"
+            android:shadowDx="1"
+            android:shadowDy="0"
+            android:shadowRadius="13"
+            android:text="Dodaj vozilo"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" 
+            android:onClick="gotoDodaj"/>
+
+    </LinearLayout>
+   <LinearLayout 
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:gravity="center"
+         android:layout_marginTop="30dp"
+        android:paddingBottom="20dp" >
+    <Button
+android:id="@+id/plati"
+
+android:text="Plati parking"
+android:textColor="#FFFFFF"
+android:textSize="15sp"
+ 
+android:layout_width="120dp"
+android:layout_height="30dp"
+android:background="@drawable/btn_plati"
+android:shadowColor="#A5A8A8"
+android:shadowDx="1"
+android:shadowDy="0"
+android:shadowRadius="13"
+/>
+</LinearLayout>
+   
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+         android:gravity="right"
+         
+        android:paddingBottom="20dp">
+
+     <Button
+         android:id="@+id/btn_update"
+         android:layout_width="120dp"
+         android:layout_height="30dp"
+         android:layout_marginEnd="30dp"
+         android:background="@drawable/btn_update"
+         android:shadowColor="#A5A8A8"
+         android:shadowDx="1"
+         android:shadowDy="0"
+         android:shadowRadius="13"
+         android:text="Update"
+         android:textColor="#FFFFFF"
+         android:textSize="15sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
+ 

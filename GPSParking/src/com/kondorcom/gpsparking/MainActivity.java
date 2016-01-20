@@ -55,30 +55,33 @@ import android.provider.Settings;
 public class MainActivity extends Activity implements LocationListener {
 
 	private static final String LOGTAG = "main_activity";
+	
 	private LocationManager locationManager;
 	
 	DatabaseHandler dbHandler = new DatabaseHandler(this);
 	
-	userDataSource datasource2;
+	userDataSource user_data_source;
 	
 	historyDataSource datasource3;
+	Button proba2;
+	Button platiParking;
 	
 	private String vozilo;
+	
 	public String getVozilo() {
 		return vozilo;
 	}
-
 	public void setVozilo(String title) {
+		
 		this.vozilo = title;
 	}
 	
-	private String registracija;
+	
 	private String broj;
 	
-	Button proba2;
 	
-	Button platiParking;
 	
+	private String registracija;
 	public String getRega() {
 		return registracija;
 	}
@@ -121,7 +124,7 @@ public class MainActivity extends Activity implements LocationListener {
 			}
 		});*/
 		
-		proba2 = (Button) findViewById(R.id.button4);
+		proba2 = (Button) findViewById(R.id.button4);  //ovo simulira uspješno placanje parkinga, sprema podatke u history/payments
 		proba2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -214,15 +217,7 @@ public class MainActivity extends Activity implements LocationListener {
 				String sms = registracija;
 				Log.i(LOGTAG,  registracija);
 				
-				//DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-				
-				/*historyDBopenhelper db = new historyDBopenhelper(getApplicationContext());
-				 try {
-					 db.insert_payment(vozilo, registracija, datum, vrijeme, grad, zona);
-				} catch (Exception e) {
-					// TODO: handle exception
-					Log.e(LOGTAG, e.toString());
-				}*/
+			
 				
 				
 				Log.i(LOGTAG,  vozilo + " " + registracija + " " + datum + " " + vrijeme + " " 
@@ -264,7 +259,8 @@ public class MainActivity extends Activity implements LocationListener {
 		
 		
 	}
-	private void onClick2() {
+	private void onClick2() //u spinneru biram vozilo za koje placam parking
+	{
 		final Spinner spinner1 = (Spinner) (findViewById(R.id.spinner1));
 		spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -278,19 +274,23 @@ public class MainActivity extends Activity implements LocationListener {
 								+ spinner1.getItemAtPosition(Index) + " "
 								+ spinner1.getItemIdAtPosition(position));
 				
-				String izvuci_broj = spinner1.getItemAtPosition(Index).toString();
+				String izvuci_broj = spinner1.getItemAtPosition(Index).toString();//ovo više nije izvuci broj nego treba biti izvuci regu
+				
 				Log.i(LOGTAG, "!!!!!!!!!!!!" + izvuci_broj);
 				
 				//String plus = "+";
 				
 				/*String broj = izvuci_broj.substring(izvuci_broj
 						.lastIndexOf(": ") + 1);*/
-				String vozilo = izvuci_broj.substring(0, izvuci_broj.lastIndexOf(":"));
+				
+				String vozilo = izvuci_broj.substring(0, izvuci_broj.lastIndexOf(":"));// možda ne treba jer tražim samo regu, a ne vozilo
 
 				//String broj2 = plus.concat(vozilo);
+				
 				setVozilo(vozilo);
 				Log.i(LOGTAG, vozilo);
 				Log.i(LOGTAG, "ovo je ime vozila  " + vozilo + " broj2 vozilo " );
+				
 				// long broj_za_slanje=long.parseLong(broj);
 
 				// broju treba naprijed dodat +
@@ -382,13 +382,13 @@ public class MainActivity extends Activity implements LocationListener {
 	private void loadSpinnerData() {
 
 		
-		datasource2 = new userDataSource(this);
+		user_data_source = new userDataSource(this);
 		
 		Log.i(LOGTAG, "loading spinner");
 	
-		datasource2.open();
+		user_data_source.open();
 		
-		List<User> Users = datasource2.findAll2();
+		List<User> Users = user_data_source.findAll2();
 		
 		ArrayAdapter<User> adapter2 = new ArrayAdapter<User>(this,
 				android.R.layout.simple_list_item_1, Users);
@@ -466,8 +466,10 @@ public class MainActivity extends Activity implements LocationListener {
 		String tag = "marko";
 		String strFirstName;
 		String strLastName;
+		
 		int intAge;
 		int intPoints;
+		
 		String lat2;
 		String long2;
 		String grad1;
@@ -484,7 +486,9 @@ public class MainActivity extends Activity implements LocationListener {
 			
 			 lat2 = Double.toString(LatitudeToSearch);
 			 long2 = Double.toString(LongitudeToSearch);
+			 
 			String tag = "marko";
+			
 			Log.i(tag, lat2);
 			Log.i(tag, long2);
 		}
@@ -514,7 +518,7 @@ public class MainActivity extends Activity implements LocationListener {
 				
 				//HttpPost httppost = new HttpPost("http://192.168.5.75:8080/GPS_parking/login.php");
 				
-				HttpPost httppost = new HttpPost("http://141.138.59.49:8080/GPS_parking/login.php");
+				HttpPost httppost = new HttpPost("http://141.136.240.235:8080/GPS_parking/login.php");
 				
 				//HttpPost httppost = new HttpPost("http://kondorcom.site88.net/login4.php");
 				
@@ -523,6 +527,7 @@ public class MainActivity extends Activity implements LocationListener {
 				httppost.setEntity(new UrlEncodedFormEntity(lat_long_value)); 
 				
 				HttpResponse response = httpclient.execute(httppost);
+				
 				HttpEntity entity = response.getEntity();
 				
 
@@ -536,7 +541,9 @@ public class MainActivity extends Activity implements LocationListener {
 				//Retrieve the data from the JSON object
 				
 				grad1=jsonObject.getString("Grad");
+				
 				Log.d(tag, jsonObject.getString("Grad"));	
+				
 				zona1=jsonObject.getString("Zona");
 				broj1=jsonObject.getString("Broj");
 				

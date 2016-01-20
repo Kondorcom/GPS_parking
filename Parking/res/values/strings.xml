@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Parking</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="vozilo">Odaberi vozilo</string>
+    <string name="grad">Odaberi grad</string>
+    <string name="zona">Odaberi zonu</string>
+    <string name="plati">Plati parking</string>
+    <string name="dodaj">Dodaj vozilo</string>
+    <string name="addVozilo">Ime vozila</string>
+    <string name="addTablica">Registracija</string>
+
+</resources>

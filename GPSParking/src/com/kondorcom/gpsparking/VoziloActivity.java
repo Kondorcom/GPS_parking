@@ -39,7 +39,7 @@ public class VoziloActivity extends Activity {
 	public void setRega(String title) {
 		this.registracija = title;
 	}
-	userDataSource datasource2;
+	userDataSource user_data_source;
 	userDBopenhelper dbHelper;
 
 	@Override
@@ -58,18 +58,15 @@ public class VoziloActivity extends Activity {
 		
 		btnDel =(Button)findViewById(R.id.button1);
 
-		//dbHandler = new DatabaseHandler(this);
 		
-		Log.i(LOGTAG, "proba");
+		
+		//Log.i(LOGTAG, "proba");
 
-		datasource2 = new userDataSource(this);
-		Log.i(LOGTAG, "proba2");
-		datasource2.open();
-		List<User> Users = datasource2.findAll2();
-		/*
-		 * if (Korisnici.size() == 0) { //createData(); Korisnici =
-		 * datasource2.findAll2(); }
-		 */
+		user_data_source = new userDataSource(this);
+		//Log.i(LOGTAG, "proba2");
+		user_data_source.open();
+		List<User> Users = user_data_source.findAll2();
+		
 		ArrayAdapter<User> adapter2 = new ArrayAdapter<User>(this,
 				android.R.layout.simple_list_item_1, Users);
 		// setListAdapter(adapter);
@@ -152,14 +149,11 @@ public class VoziloActivity extends Activity {
 
 	private void loadSpinnerData() {
 
-		datasource2 = new userDataSource(this);
-		Log.i(LOGTAG, "proba3");
-		datasource2.open();
-		List<User> Users = datasource2.findAll2();
-		/*
-		 * if (Korisnici.size() == 0) { //createData(); Korisnici =
-		 * datasource2.findAll2(); }
-		 */
+		user_data_source = new userDataSource(this);
+		//Log.i(LOGTAG, "proba3");
+		user_data_source.open();
+		List<User> Users = user_data_source.findAll2();
+		
 		ArrayAdapter<User> adapter2 = new ArrayAdapter<User>(this,
 				android.R.layout.simple_list_item_1, Users);
 		Log.i(LOGTAG, "spiner");
@@ -170,7 +164,7 @@ public class VoziloActivity extends Activity {
 		vozila.setAdapter(adapter2);
 
 	}
-	private void onClick2() {
+	private void onClick2() { // ovo cijelo pregledaj jer ima previše svega
 		final Spinner spinner1 = (Spinner) (findViewById(R.id.spinner_vozila));
 		spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
