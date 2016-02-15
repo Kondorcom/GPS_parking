@@ -1,8 +1,6 @@
 INDEX VERSION 1.127+/home/kondor/GIT_GPS_parking/.metadata/.plugins/org.eclipse.jdt.core
 538755626.index
-2777815819.index
 3227573871.index
 2897265781.index
-1268307951.index
 1406394424.index
 2310376990.index

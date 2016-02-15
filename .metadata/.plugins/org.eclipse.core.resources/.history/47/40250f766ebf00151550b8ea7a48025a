@@ -518,7 +518,7 @@ public class MainActivity extends Activity implements LocationListener {
 				
 				//HttpPost httppost = new HttpPost("http://192.168.5.75:8080/GPS_parking/login.php");
 				
-				HttpPost httppost = new HttpPost("http://kondorcom.ddns.net:8080/GPS_parking/login.php");
+				HttpPost httppost = new HttpPost("http://141.136.240.235:8080/GPS_parking/login.php");
 				
 				//HttpPost httppost = new HttpPost("http://kondorcom.site88.net/login4.php");
 				
