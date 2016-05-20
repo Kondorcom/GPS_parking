@@ -6,16 +6,10 @@ import android.util.Log;
 
 
 public class User {
-	//private static final String LOGTAG = null;
+	
 	private long _id;
 	private String vehicle;
 	private String registration;
-	
-	private String grad1;
-	private String zona1;
-	private String auto1;
-	
-	private static final String LOGTAG = "park";
 	
 	public User() {
 	}
@@ -43,25 +37,7 @@ public class User {
 	public void setRegistration(String title) {
 		this.registration = title;
 	}
-	/*
-	public String getGrad1() {
-		return grad1;
-	}
-	public void setGrad1(String title) {
-		this.grad1 = title;
-	}
-	public String getZona1() {
-		return zona1;
-	}
-	public void setZona1(String title) {
-		this.zona1 = title;
-	}
-	public String getAuto1() {
-		return auto1;
-	}
-	public void setAuto1(String title) {
-		this.auto1 = title;
-	}*/
+
 	
 	@Override
 	public String toString() {

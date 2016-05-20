@@ -16,14 +16,12 @@ public class History {
 	private String City;
 	private String Zone;
 	
-	private static final String LOGTAG = "park";
-	
+		
 	public History() {
 	}
 
 	public History(String title) {
 		this.vehicle = title;
-		
 	}
 	
 	public long getId() {

@@ -59,10 +59,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     	
        /* String CREATE_ITEM_TABLE = "CREATE TABLE " + TABLE_KORISNIK + "("  
                 + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_VOZILO + " TEXT," + COLUMN_OZNAKA + " TEXT)";  */
-       
-        
-        
-        
+               
+                
         Log.i(LOGTAG, "kreiranje tablica payments");
         Log.i(LOGTAG, "kreirane tablice ");
         try {
@@ -76,11 +74,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			e.printStackTrace();
 			
 		}
-        
-        
-        
-        
-        
+                        
+                
     }  
    
     // Upgrading database  
@@ -133,52 +128,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
           db.close(); // Closing database connection  
     	 }
     
-    /** 
-     * Inserting new lable into lables table 
-     * */  
     
-    /*
-     *	//ne koristim
-     * public void insertLabel2(String label, String label1){  
-        SQLiteDatabase db = this.getWritableDatabase();  
-   
-        ContentValues values = new ContentValues();  
-        values.put(COLUMN_VOZILO, label);//column name, column value   // radilo nekad
-        values.put(COLUMN_OZNAKA, label1);
-   
-        // Inserting Row  
-        db.insert(TABLE_KORISNIK, null, values);//tableName, nullColumnHack, CotentValues  
-        db.close(); // Closing database connection  
-    }  */
-   
-    /** 
-     * Getting all labels 
-     * returns list of labels 
-     * */  
-   /* public List<String> getAllLabels(){  
-        List<String> list = new ArrayList<String>();  
-   
-        // Select All Query  
-        String selectQuery = "SELECT  * FROM " + TABLE_KORISNIK;  
-   
-        SQLiteDatabase db = this.getReadableDatabase();  
-        Cursor cursor = db.rawQuery(selectQuery, null);//selectQuery,selectedArguments  
-   
-        // looping through all rows and adding to list  
-        if (cursor.moveToFirst()) {  
-            do {  
-                list.add(cursor.getString(2));
-                //adding 2nd column data  
-                //biramo koji stupac dodati u spiner
-            } while (cursor.moveToNext());  
-        }  
-        // closing connection  
-        cursor.close();  
-        db.close();  
-   
-        // returning lables  
-        return list;  
-    }  */
 
 	
 }  

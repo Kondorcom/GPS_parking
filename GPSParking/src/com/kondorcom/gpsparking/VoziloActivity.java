@@ -7,6 +7,7 @@ import com.kondorcom.gpsparking.db.userDataSource;
 import com.kondorcom.gpsparking.model.User;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 
 public class VoziloActivity extends Activity {
@@ -60,10 +62,10 @@ public class VoziloActivity extends Activity {
 
 		
 		
-		//Log.i(LOGTAG, "proba");
+		
 
 		user_data_source = new userDataSource(this);
-		//Log.i(LOGTAG, "proba2");
+	
 		user_data_source.open();
 		List<User> Users = user_data_source.findAll2();
 		
@@ -86,10 +88,7 @@ public class VoziloActivity extends Activity {
 
 				Log.i(LOGTAG, "label11");
 				if (vehicle_data.trim().length() > 0 & (reg_data.trim().length() == 7 || reg_data.trim().length() == 8)) {
-					// database handler
 					
-					/*DatabaseHandler db = new DatabaseHandler(
-							getApplicationContext());*/
 					
 					userDBopenhelper db  = new userDBopenhelper(
 							getApplicationContext());
@@ -132,14 +131,54 @@ public class VoziloActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(VoziloActivity.this);
+				 
+		       
+		        alertDialog.setTitle("Confirm Delete...");
+		 
+		        
+		        alertDialog.setMessage("Are you sure you want delete this?");
+		 
+		  
+		 
+		      
+		        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog,int which) {
+		            	// TODO Auto-generated method stub
+						Log.i(LOGTAG, "registracije="+ registracija);
+						
+						userDBopenhelper db  = new userDBopenhelper(
+								getApplicationContext());
+						db.delete_user(registracija);
+						db.close();
+						loadSpinnerData();
+		            
+		            //Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
+		            }
+		        });
+		 
+		       
+		        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int which) {
+		            
+		            	loadSpinnerData();
+		            //Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+		            dialog.cancel();
+		            }
+		        });
+		 
+		        
+		        alertDialog.show();
+								
 				// TODO Auto-generated method stub
-				Log.i(LOGTAG, "registracije="+ registracija);
+				/*Log.i(LOGTAG, "registracije="+ registracija);
+				
 				userDBopenhelper db  = new userDBopenhelper(
 						getApplicationContext());
 				db.delete_user(registracija);
-				db.close();
+				db.close();*/
 				
-				loadSpinnerData();
+				//loadSpinnerData();
 			}
 			
 			
@@ -164,6 +203,7 @@ public class VoziloActivity extends Activity {
 		vozila.setAdapter(adapter2);
 
 	}
+	
 	private void onClick2() { // ovo cijelo pregledaj jer ima previše svega
 		final Spinner spinner1 = (Spinner) (findViewById(R.id.spinner_vozila));
 		spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

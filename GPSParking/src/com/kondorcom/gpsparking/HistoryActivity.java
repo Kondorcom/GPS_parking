@@ -88,20 +88,7 @@ public class HistoryActivity extends Activity {
 		Log.i(LOGTAG, "spiner_main");
 		povijest.setAdapter(adapter2);
 		
-		/*List<History> hist = hist_data_source.findCars();
 		
-		
-		ArrayAdapter<History> adapter2 = new ArrayAdapter<History>(this,
-				android.R.layout.simple_list_item_1, hist);
-		Log.i(LOGTAG, "spiner_main");
-		// setListAdapter(adapter);
-		
-		Log.d("history_payments", hist.toString());
-		Spinner povijest = (Spinner) findViewById(R.id.spinner1);
-		
-		
-		Log.i(LOGTAG, "spiner_main");
-		povijest.setAdapter(adapter2);*/
 		
 	}
 	private void onClick2() {
@@ -122,21 +109,7 @@ public class HistoryActivity extends Activity {
 				String izvuci_broj = spinner1.getItemAtPosition(Index).toString();
 				Log.i(LOGTAG, "!!!!!!!!!!!!" + izvuci_broj);
 				
-				//String plus = "+";
 				
-				/*String broj = izvuci_broj.substring(izvuci_broj
-						.lastIndexOf(": ") + 1);*/
-				//String vozilo = izvuci_broj.substring(0, izvuci_broj.lastIndexOf(":"));
-
-				//String broj2 = plus.concat(vozilo);
-				
-				/*setVozilo(vozilo);
-				Log.i(LOGTAG, vozilo);
-				Log.i(LOGTAG, "ovo je ime vozila  " + vozilo + " broj2 vozilo " );*/
-				// long broj_za_slanje=long.parseLong(broj);
-
-				// broju treba naprijed dodat +
-				// Log.i(LOGTAG,broj+" "+broj_za_slanje);
 				
 				String izvuci_oznaku = spinner1.getItemAtPosition(position)
 						.toString();
@@ -146,36 +119,15 @@ public class HistoryActivity extends Activity {
 						.lastIndexOf(" ") + 1);
 				setRega(oznaka1);
 				Log.i(LOGTAG, "ovo je rega:_" + oznaka1 +"_");
-				
-				/*historyDBopenhelper db = new historyDBopenhelper(getApplicationContext());
-				String selectQuery = "SELECT * FROM payments WHERE vehicle= oznaka1 ";
-				Cursor c = db.rawQuery(selectQuery, new String[] { fileName });
-				if (c.moveToFirst()) {
-				    temp_address = c.getString(c.getColumnIndex("lastchapter"));
-				}
-				c.close();*/
-
-				
+								
 				lista();
-				
-				/*Log.i(LOGTAG, "historry spinner");
-			
-				hist_data_source.open();
-				List<History> hist = datasource.findCars(oznaka1);
-				
-				Log.d("history_payments1111111", hist.toString());
-				
-				ArrayAdapter<History> adapter = new ArrayAdapter<History>(this,android.R.layout.simple_list_item_1,hist);
-				
-				ListView lv = (ListView)findViewById(R.id.list);*/
-				
+												
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 
 			}
-
 
 		});
 		;

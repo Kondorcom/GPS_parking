@@ -11,7 +11,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
@@ -58,7 +60,7 @@ public class MainActivity extends Activity implements LocationListener {
 	
 	private LocationManager locationManager;
 	
-	DatabaseHandler dbHandler = new DatabaseHandler(this);
+	
 	
 	userDataSource user_data_source;
 	
@@ -95,7 +97,7 @@ public class MainActivity extends Activity implements LocationListener {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_main);
-		//dbHandler = new DatabaseHandler(getApplicationContext());
+		
 		
 		
 		loadSpinnerData();
@@ -125,7 +127,7 @@ public class MainActivity extends Activity implements LocationListener {
 		});*/
 		
 		proba2 = (Button) findViewById(R.id.button4);  //ovo simulira uspješno placanje parkinga, sprema podatke u history/payments
-		proba2.setOnClickListener(new View.OnClickListener() {
+		proba2.setOnClickListener(new View.OnClickListener() {		//tipka update location ili simuliraj placanje
 			@Override
 			public void onClick(View arg0) {
 				String grad;
@@ -175,7 +177,7 @@ public class MainActivity extends Activity implements LocationListener {
 		platiParking = (Button) findViewById(R.id.button3);
 		
 		// zonaSpinner();
-		//dbHandler = new DatabaseHandler(this);
+		
 		
 		platiParking.setOnClickListener(new View.OnClickListener() {
 
@@ -209,16 +211,14 @@ public class MainActivity extends Activity implements LocationListener {
 						
 						
 						
-				//String phoneNo = broj;
+				//String phoneNo = broj; //trenutno isključeno da bzvz ne šaljem poruke
 						
 				String phoneNo = null;
 				
 				registracija=getRega();
 				String sms = registracija;
 				Log.i(LOGTAG,  registracija);
-				
-			
-				
+											
 				
 				Log.i(LOGTAG,  vozilo + " " + registracija + " " + datum + " " + vrijeme + " " 
 				+ grad + " " + zona  );
@@ -314,30 +314,7 @@ public class MainActivity extends Activity implements LocationListener {
 		});
 		;
 	}
-	/*private void onClick3() {
-		final Spinner spinner = (Spinner) (findViewById(R.id.spinner1));
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				
-				String izvuci_oznaku = spinner.getItemAtPosition(position)
-						.toString();
-				Log.i(LOGTAG, "KOJI AUTO" + izvuci_oznaku);
-				String oznaka1 = izvuci_oznaku.substring(izvuci_oznaku
-						.lastIndexOf(" ") + 1);
-				setRega(oznaka1);
-				Log.i(LOGTAG, "ovo je rega:    " + oznaka1);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
-		;
-	}*/
+	
 	
 	
 	@Override
@@ -409,12 +386,16 @@ public class MainActivity extends Activity implements LocationListener {
  
 		/*String msg = "New Latitude: " + location.getLatitude()
 				+ "New Longitude: " + location.getLongitude();*/
+	
 		
-		DoPOST mDoPOST = new DoPOST(MainActivity.this, location.getLatitude(),location.getLongitude());
-		mDoPOST.execute("");
+		
+	DoGET mDoGET = new DoGET(MainActivity.this, location.getLatitude(),location.getLongitude());
+		mDoGET.execute("");
+		
 		Log.i("Message: ","Location changed, " + location.getAccuracy() + " , " + location.getLatitude()+ "," + location.getLongitude());
 		//Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
 	}
+	
 	@Override
 	public void onProviderDisabled(String provider) {
  
@@ -455,7 +436,8 @@ public class MainActivity extends Activity implements LocationListener {
 	}
 	
 	
-	public class DoPOST extends AsyncTask<String, Void, Boolean>{
+	
+	public class DoGET extends AsyncTask<String, Void, Boolean>{
 
 		Context mContext = null;
 		String strNameToSearch = "";
@@ -478,7 +460,7 @@ public class MainActivity extends Activity implements LocationListener {
 		
 		Exception exception = null;
 		
-		DoPOST(Context context, double searchLatitude, double searchLongitude){
+		DoGET(Context context, double searchLatitude, double searchLongitude){
 			mContext = context;
 			
 			LatitudeToSearch = searchLatitude;
@@ -488,7 +470,7 @@ public class MainActivity extends Activity implements LocationListener {
 			 long2 = Double.toString(LongitudeToSearch);
 			 
 			String tag = "marko";
-			
+			Log.i(LOGTAG, "DOGET");
 			Log.i(tag, lat2);
 			Log.i(tag, long2);
 		}
@@ -501,9 +483,17 @@ public class MainActivity extends Activity implements LocationListener {
 				//Setup the parameters
 				
 				
-				ArrayList<NameValuePair> lat_long_value = new ArrayList<NameValuePair>(); //GiveLat
+				ArrayList<NameValuePair> lat_long_value = new ArrayList<NameValuePair>(); //GiveLat_long
 				lat_long_value.add(new BasicNameValuePair("GiveLat", lat2));
 				lat_long_value.add(new BasicNameValuePair("GiveLong", long2));
+			
+				ArrayList<NameValuePair> lat_value = new ArrayList<NameValuePair>(); //GiveLat
+				lat_long_value.add(new BasicNameValuePair("GiveLat", lat2));
+				
+				ArrayList<NameValuePair> long_value = new ArrayList<NameValuePair>(); //GiveLong
+				
+				lat_long_value.add(new BasicNameValuePair("GiveLong", long2));
+			
 			
 
 				//Create the HTTP request
@@ -514,19 +504,47 @@ public class MainActivity extends Activity implements LocationListener {
 				HttpConnectionParams.setSoTimeout(httpParameters, 15000);			
 
 				HttpClient httpclient = new DefaultHttpClient(httpParameters);
+				
 				//HttpPost httppost = new HttpPost("http://192.168.5.75:8080/GPS_parking/login3.php");//ovaj dio treba srediti
-				
-				//HttpPost httppost = new HttpPost("http://192.168.5.75:8080/GPS_parking/login.php");
-				
-				HttpPost httppost = new HttpPost("http://kondorcom.ddns.net:8080/GPS_parking/login.php");
-				
+				//HttpPost httppost = new HttpPost("http://192.168.5.75:8080/GPS_parking/login.php");//lokalna baza 
 				//HttpPost httppost = new HttpPost("http://kondorcom.site88.net/login4.php");
 				
-				//HttpPost httppost = new HttpPost("http://192.168.5.75/login3.php");
-								
-				httppost.setEntity(new UrlEncodedFormEntity(lat_long_value)); 
+				//HttpPost httppost = new HttpPost("http://kondorcom.ddns.net:8080/GPS_parking/login.php");
+				//lokalna baza pristup izvana
 				
-				HttpResponse response = httpclient.execute(httppost);
+		//	HttpPost httppost = new HttpPost("http://kondorcom.ddns.net:8080/GPS_parking/server_login_16.5/login.php");
+				
+				String url = "http://kondorcom.ddns.net:8080/GPS_parking/server_login_16.5/login.php";
+				
+				//String url = "http://www.kondor88.podserver.info/index.php";
+				//HttpGet httpget = new HttpGet(url + "?" +lat_value + "?" + long_value);
+				
+				 String paramString = URLEncodedUtils.format(lat_long_value, "utf-8");
+				 
+				HttpGet httpget = new HttpGet(url + "?" + paramString);
+				//HttpGet httpget = new HttpGet("http://kondorcom.ddns.net:8080/GPS_parking/server_login_16.5/login.php?GiveLat=3&GiveLong=5");
+				
+			
+		/*	HttpGet httpget = new HttpGet("http://kondorcom.ddns.net:8080/GPS_parking/server_login_16.5/login.php");
+			HttpParams p = new BasicHttpParams();
+			
+			Log.i(LOGTAG, lat2);
+			Log.i(LOGTAG, long2);
+			
+			p.setParameter("GiveLat", lat2);
+			p.setParameter("GiveLong", long2);
+			httpget.setParams(p);*/
+			
+			//httpget.setParams("GiveLat", lat2); 
+			
+			HttpResponse response = httpclient.execute(httpget);
+				
+				
+				
+								
+				//httppost.setEntity(new UrlEncodedFormEntity(lat_long_value)); 
+				
+				//HttpResponse response = httpclient.execute(httppost);
 				
 				HttpEntity entity = response.getEntity();
 				
